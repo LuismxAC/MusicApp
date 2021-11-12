@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:music_full_project/app_colors.dart' as app_colors;
+import 'package:music_full_project/tablas.dart';
+import 'package:fab_circular_menu/fab_circular_menu.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -38,43 +40,19 @@ class _HomePageState extends State<HomePage>
                   Expanded(
                     child: Column(
                       children: [
-                        Container(
-                          margin: const EdgeInsets.only(left: 20, right: 20),
-                          child: Row(
-                            //para que haya un espacio entre los iconos de izquierda y los otros de la derecha
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const ImageIcon(
-                                AssetImage("imgs/menu_dos.png"),
-                                size: 24,
-                                color: Colors.black,
-                              ),
-                              Row(
-                                children: const [
-                                  Icon(Icons.search),
-                                  //separacion entre el icono de buscar y notificaciones
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Icon(Icons.notifications)
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        //seperación de altura
-                        const SizedBox(height: 20),
-
+                        SizedBox(height: 20),
                         Row(
                           children: [
                             Container(
-                                margin: const EdgeInsets.only(left: 94),
-                                child: const Text("Music Player",
-                                    style: TextStyle(fontSize: 30)))
+                                margin: const EdgeInsets.only(left: 67),
+                                child: Text("Music Player",
+                                    style: TextStyle(
+                                        fontSize: 40,
+                                        fontWeight: FontWeight.w700,
+                                        color: app_colors.barraModerna)))
                           ],
                         ),
                         const SizedBox(height: 20),
-
                         Container(
                           height: 180,
                           child: Stack(children: [
@@ -101,7 +79,9 @@ class _HomePageState extends State<HomePage>
                                                 '${snapshot.data![index]['name']}',
                                                 style: const TextStyle(
                                                     color: Colors.white,
-                                                    fontSize: 25.0)),
+                                                    fontSize: 25.0,
+                                                    fontWeight:
+                                                        FontWeight.w300)),
                                           ),
                                           decoration: BoxDecoration(
                                               borderRadius:
@@ -120,7 +100,6 @@ class _HomePageState extends State<HomePage>
                             ),
                           ]),
                         ),
-
                         Expanded(
                             child: NestedScrollView(
                           controller: _scrollController,
@@ -129,17 +108,19 @@ class _HomePageState extends State<HomePage>
                             return [
                               SliverAppBar(
                                 pinned: true,
-                                backgroundColor: Colors.white,
+                                backgroundColor: app_colors.sliverBackground,
                                 bottom: PreferredSize(
                                     preferredSize: const Size.fromHeight(40),
                                     child: Container(
-                                      margin: const EdgeInsets.all(3.5),
+                                      margin: const EdgeInsets.only(
+                                          bottom: 20, left: 8),
                                       child: TabBar(
                                         indicatorPadding:
                                             const EdgeInsets.all(0),
                                         indicatorSize:
                                             TabBarIndicatorSize.label,
-                                        labelPadding: const EdgeInsets.all(0),
+                                        labelPadding:
+                                            const EdgeInsets.only(right: 5),
                                         controller: _tabController,
                                         isScrollable: true,
                                         indicator: BoxDecoration(
@@ -154,67 +135,15 @@ class _HomePageState extends State<HomePage>
                                               )
                                             ]),
                                         tabs: [
-                                          Container(
-                                              width: 120,
-                                              height: 50,
-                                              child: const Text(
-                                                "New",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: Colors.red,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.grey
-                                                          .withOpacity(0.3),
-                                                      blurRadius: 7,
-                                                      offset:
-                                                          const Offset(0, 0),
-                                                    )
-                                                  ])),
-                                          Container(
-                                              width: 120,
-                                              height: 50,
-                                              child: const Text(
-                                                "New",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.grey
-                                                          .withOpacity(0.3),
-                                                      blurRadius: 7,
-                                                      offset:
-                                                          const Offset(0, 0),
-                                                    )
-                                                  ])),
-                                          Container(
-                                              width: 120,
-                                              height: 50,
-                                              child: const Text(
-                                                "New",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.grey
-                                                          .withOpacity(0.3),
-                                                      blurRadius: 7,
-                                                      offset:
-                                                          const Offset(0, 0),
-                                                    )
-                                                  ]))
+                                          AppTabs(
+                                              color: app_colors.modernoDos,
+                                              text: "Nuevo"),
+                                          AppTabs(
+                                              color: app_colors.modernoTres,
+                                              text: "Popular"),
+                                          AppTabs(
+                                              color: app_colors.modernoCuatro,
+                                              text: "Tendencias"),
                                         ],
                                       ),
                                     )),
@@ -255,9 +184,28 @@ class _HomePageState extends State<HomePage>
                 return Center(child: Text('${snapshot.error}'));
               }
               return const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.yellow,
+                ),
               );
             }),
+        floatingActionButton: FabCircularMenu(
+          ringColor: app_colors.barraModerna,
+          fabColor: app_colors.background,
+          ringWidth: 80,
+          children: [
+            IconButton(
+                onPressed: null, icon: Icon(Icons.home, color: Colors.white)),
+            IconButton(
+                onPressed: null,
+                icon: Icon(Icons.music_note_outlined, color: Colors.white)),
+            IconButton(
+                onPressed: null, icon: Icon(Icons.search, color: Colors.white)),
+            IconButton(
+                onPressed: null,
+                icon: Icon(Icons.favorite, color: Colors.white)),
+          ],
+        ),
       )),
     );
   }
