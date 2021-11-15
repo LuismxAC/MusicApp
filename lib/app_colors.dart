@@ -15,8 +15,13 @@ final Color auidoGreyBackground = Color(0xFFf2f2f2);
 //paleta de colores modernos
 
 final Color modernoUno = Color(0xFF030102);
-final Color modernoDos = Color(0xFF5059A1);
-final Color modernoTres = Color(0xFFEFC337);
-final Color modernoCuatro = Color(0xFFBE3B2C);
+final Color modernoDos = Color(0xFF002651);
+final Color modernoTres = Color(0xFFff304f);
+final Color modernoCuatro = Color(0xFF775ada);
 
-final Color barraModerna = Color(0xFF0E122D);
+final Color barraModerna = Color(0xFF2d4059);
+
+final Color botonAlbum = Color(0xFF0B5887);
+final Color botonAlbumDos = Color(0xFF28c7fa);
+
+final Color headPhone = Color(0xFF114b5f);
